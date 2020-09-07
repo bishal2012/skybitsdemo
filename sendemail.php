@@ -7,11 +7,11 @@ define( "RECIPIENT_EMAIL", "bishal9577132889@gmail.com" );
 
 // Read the form values
 $success = false;
-$userName = isset( $_GET['username'] ) ? preg _replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_GET['username'] ) : "";
-$senderEmail = isset( $_GET['email'] ) ? preg_replace( "/[*\.\-\_\@a-zA-2@-9]/", "", $_GET['email'] ) : "";
-$userPhone = isset( $_GET['phone'] ) ? preg replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_GET['phone'] ) : "";
-$userSubject = isset( $_GET['subject'] ) ? preg_replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_GET['subject'] ) : "";
-$message = isset( $_GET['message'] ) ? preg_replace( "/(From:|To:|BCC:|CC:|Subject:|Content-Type:)/","", $_GET['message'] ) : "";
+$userName = isset( $_POST['username'] ) ? preg _replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['username'] ) : "";
+$senderEmail = isset( $_POST['email'] ) ? preg_replace( "/[*\.\-\_\@a-zA-2@-9]/", "", $_POST['email'] ) : "";
+$userPhone = isset( $_POST['phone'] ) ? preg replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['phone'] ) : "";
+$userSubject = isset( $_POST['subject'] ) ? preg_replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['subject'] ) : "";
+$message = isset( $_POST['message'] ) ? preg_replace( "/(From:|To:|BCC:|CC:|Subject:|Content-Type:)/","", $_POST['message'] ) : "";
 
 
 // If all values exist, send the email
