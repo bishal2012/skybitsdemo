@@ -1,37 +1,31 @@
 <?php
+
 // Define some constants
-
-define( "RECIPIENT_NAME", "Bishal Sen" ); 
-define( "RECIPIENT_EMAIL", "bishal9577132889@gmail.com" );
-
+define( "RECIPIENT_NAME", "Satyajit" );
+define( "RECIPIENT_EMAIL", "sroy@sky-bits.com");
 
 // Read the form values
 $success = false;
-$userName = isset( $_POST['username'] ) ? preg _replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['username'] ) : "";
-$senderEmail = isset( $_POST['email'] ) ? preg_replace( "/[*\.\-\_\@a-zA-2@-9]/", "", $_POST['email'] ) : "";
-$userPhone = isset( $_POST['phone'] ) ? preg replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['phone'] ) : "";
-$userSubject = isset( $_POST['subject'] ) ? preg_replace( "/[*\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['subject'] ) : "";
-$message = isset( $_POST['message'] ) ? preg_replace( "/(From:|To:|BCC:|CC:|Subject:|Content-Type:)/","", $_POST['message'] ) : "";
-
+$userName = isset( $_POST['username'] ) ? preg_replace( "/[^\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['username'] ) : "";
+$senderEmail = isset( $_POST['email'] ) ? preg_replace( "/[^\.\-\_\@a-zA-Z0-9]/", "", $_POST['email'] ) : "";
+$userSubject = isset( $_POST['subject'] ) ? preg_replace( "/[^\s\S\.\-\_\@a-zA-Z0-9]/", "", $_POST['subject'] ) : "";
+$message = isset( $_POST['message'] ) ? preg_replace( "/(From:|To:|BCC:|CC:|Subject:|Content-Type:)/", "", $_POST['message'] ) : "";
 
 // If all values exist, send the email
-if ( $userName && $senderEmail && $userPhone && $userSubject && $message) {
+if ( $userName && $senderEmail && $userSubject && $message) {
+  $recipient = RECIPIENT_NAME . " <" . RECIPIENT_EMAIL . ">";
+  $headers = "From: ".$userName." <".$senderEmail.">\r\nReply-To: ".$senderEmail."";
+  $msgBody = $message;
+  $subject = $userSubject;
+  $success = mail( $recipient,  $subject , $msgBody, $headers );
 
-$recipient = RECIPIENT_NAME . " <" . RECIPIENT_EMAIL . ">";
-$headers = "From: " . $userName . "";
-$msgBody = " Name: ". $userName . " Email: ". $senderEmail . " Phone: ". $userPhone . " Subject: ". $userSubject . " Message: " . $message"";
-$success = mail{ $recipient, $headers, $msgBody );
-
-//Set Location After Successsfull Submission
-header( 'Location: contact.html?message=Successfull');
-
+  //Set Location After Successsfull Submission
+  header('Location: message-sent.html?message=Successfull');
 }
 
 else{
-
-//Set Location After Unsuccesssfull Submission
-header( 'Location: contact.html?message=Failed');
-
+	//Set Location After Unsuccesssfull Submission
+  	header('Location: error.html?message=Failed');	
 }
 
 ?>
